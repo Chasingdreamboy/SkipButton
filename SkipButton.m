@@ -38,7 +38,7 @@ const char blockKey;
         _shapLayer = [CAShapeLayer layer];
         _shapLayer.frame = self.bounds;
         _shapLayer.lineWidth = _lineWidth;
-        _shapLayer.lineCap = kCALineCapRound;
+//        _shapLayer.lineCap = kCALineCapRound;
         _shapLayer.strokeColor = _circleColor.CGColor;
         _shapLayer.fillColor = [UIColor clearColor].CGColor;
         _shapLayer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0) radius:(self.bounds.size.width + _shapLayer.lineWidth) / 2.0 startAngle:-M_PI_2 endAngle:- (M_PI * 2 + M_PI_2)  clockwise:NO].CGPath;
@@ -85,7 +85,6 @@ const char blockKey;
          [_shapLayer removeAnimationForKey:@"progressAnimation"];
         [_shapLayer removeFromSuperlayer];
         _shapLayer = nil;
-        
     }
    
     Finished finished = objc_getAssociatedObject(self, &blockKey);

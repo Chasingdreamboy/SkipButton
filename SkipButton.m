@@ -13,6 +13,7 @@ const char blockKey;
 @property (strong, nonatomic) UIColor *circleColor;
 @property (assign, nonatomic) CGFloat lineWidth;
 @property (assign, nonatomic) CGFloat timeCount;
+@property  (strong, nonatomic) CAShapeLayer *trackLayer;
 @property (strong, nonatomic) CAShapeLayer *shapLayer;
 @property (strong, nonatomic) CABasicAnimation *progressAni;
 @end
@@ -25,7 +26,7 @@ const char blockKey;
     if (self) {
         objc_setAssociatedObject(self, &blockKey, finished, OBJC_ASSOCIATION_COPY);
         self.layer.cornerRadius = frame.size.width / 2.0;
-        self.layer.masksToBounds = YES;
+//        self.layer.masksToBounds = YES;
         _circleColor = tintColor;
         _lineWidth = lineWidth;
         _timeCount = timeCount;
@@ -40,11 +41,13 @@ const char blockKey;
         _shapLayer.lineCap = kCALineCapRound;
         _shapLayer.strokeColor = _circleColor.CGColor;
         _shapLayer.fillColor = [UIColor clearColor].CGColor;
-        _shapLayer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0) radius:(self.bounds.size.width - _shapLayer.lineWidth) / 2.0 startAngle:-M_PI_2 endAngle:- (M_PI * 2 + M_PI_2)  clockwise:NO].CGPath;
+        _shapLayer.path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.bounds.size.width / 2.0, self.bounds.size.height / 2.0) radius:(self.bounds.size.width + _shapLayer.lineWidth) / 2.0 startAngle:-M_PI_2 endAngle:- (M_PI * 2 + M_PI_2)  clockwise:NO].CGPath;
         [self.layer addSublayer:_shapLayer];
     }
     return _shapLayer;
 }
+
+
 - (void)startAnimation {
     if (_sameActionWithClick) {
         [self addTarget:self action:@selector(actionClick) forControlEvents:UIControlEventTouchUpInside];
